@@ -1,0 +1,811 @@
+May 21 2024
+What is TestNG?
+Cedric Buest
+TestNG (Test Next Generation) is the advanced testing framework
+TestNG took its inspiration from Junit (Java) and NUnit (DotNet)
+
+It works seamlessly with Selenium to automate web application testing
+TestNG is used to maintain test cases.
+
+
+Advantages/Features :
+
+Annotations-Based Testing 
+Advanced Assertion
+Supports Data-Driven Testing
+Parameterization Support
+Parallel Testing
+Test Case Grouping
+HTML Reports and Customization
+
+ 
+TestNG Installation: 
+   - 1. Add dependency in the pom.xml 
+        This adds the required jarfiles to the project . 
+        TestNG jar files for the project gets downloaded from maven repository
+     2. Add TestNG to the Eclipse IDE 
+        The IDE should also have the TestNG installed in it 
+        You can install from the Help--> Eclipse MarketPlace 
+
+Basics of TestNg 
+Annotations and its hierarchy
+TestNg XML 
+@Test Annotation and its attributes
+      --  Dependency Injection
+
+
+Test Reports using TestNg
+Parameterization - @Parameter and @DataProvider
+Read Excel using Apache POI Java API
+Integrate excel data automation with TestNg (Apache POI + Data Provider)
+
+Build OOPS concepts into TestNg implementation
+Convert existing plain testcases to TestNg implementation
+TestNG Assertion 
+Categorise the test cases  : Few as smoke test , Few as regression
+Cross Browser Testing
+
+Run sequential, parallel - with logs and reports
+Listeners - ISuite, ITest and Retry Implementations
+
+
+
+How to convert Java file to TestNG file?
+
+1. Remove the public static void main(String[] args)
+2. Replace it with a method
+3. Include the annotation @Test : Placed on top of a method to tell TestNG that its a test case. 
+
+
+Step 1 : Convert Java file to TestNG file
+    Remove the main() method 
+    Repalce it with a normal method 
+    Add @Test to all the below 5 classes:
+		Login
+		AdduserPIM
+		AddUser
+		DeleteUser
+		Logout
+Right Click on the class to see TestNG option in the Menu ( To ensure the compiler is seeing it as a TestNG file)
+
+Step 2 : How to run individual files separately as TestNG files?
+    RightClick on the java file --> Run As --> TestNG Tests
+    Test Report status:
+        - Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+
+Step 3 : How to sequentially run multiple files using TestNG?
+         - Using xml files 
+
+ a) Create xml files:
+    - Choose all the java files that we have to execute 
+    - RightClick --> TestNG --> Convert to TestNG 
+    - Refactoring --> Name the testing xml file and save it in your preferred location
+    - This creates an xml file as below 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test"  verbose="5">
+    <classes>
+      <class name="OrangeHRMTestNG.LoginHRM"/>
+      <class name="OrangeHRMTestNG.AddUserPIM"/>
+      <class name="OrangeHRMTestNG.AddUser"/>
+      <class name="OrangeHRMTestNG.DeleteUser"/>
+      <class name="OrangeHRMTestNG.LogOut"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+
+b) Execute the xml file
+     - Choose the xml file that we have to execute 
+     - Right Click --> RunAs --> TestNGSuite 
+   
+ Add verbose to the xml file to display the exceptions in case of any failures 
+
+Verbose : 
+Generates the execution logs
+Ranges from 0 to 10 
+Default value is 2 
+
+Structure of TestNG xml:
+
+1. <suite name="Suite">        </suite>  : Any name can be given as per the users wish
+2. <test name="Regression">    </test>
+3. <classes>                   </classes> 
+4. <class name="OrangeHRMTestNG.LoginHRM"/>
+      " PackageName.TestCaseName"
+
+Multiple Tests can be accommodated in a suite :
+<suite name="Suite1" verbose="1" >
+
+  <test name="Regression1" >
+    <classes>
+       <class name=  " PackageName.TestCaseName" />
+    </classes>
+  </test>
+
+  <test name="Regression2">
+    <classes>
+      <class name=  "PackageName.TestCaseName"/>
+      <class name=  "PackageName.TestCaseName"/>
+    </classes>
+  </test>
+</suite>
+
+
+Assignment:
+Write all the Test cases for OrangeHRM 
+Execute in sequential pattern 
+
+Scenario 2: Parallel run 
+The parallel attribute on the <suite> tag
+
+
+parallel="classes"
+thread-count="3"  : allows the user to specify how many threads should be run for this execution 
+
+
+
+ANNOTATIONS:
+Scenario 3: Apply Annotations 
+
+@Test: This is one of the core annotations in TestNG. This annotation designates a method as a test case. 
+
+You can specify additional characteristics, highlight dependencies, and enable or deactivate tests using this annotation.
+Types of TestNG Annotations
+@Test(enabled = false): You can momentarily disable a test method without deleting it from your codebase by annotating @Test(enabled = false).
+
+
+@BeforeMethod and @AfterMethod: Each test method in the current class should have a method called @BeforeMethod run both before and after it
+
+
+@BeforeClass and @AfterClass: A method designated as @BeforeClass and @AfterClass shall execute once before and once after all test methods in the current class
+
+
+@BeforeSuite and @AfterSuite: These annotations, @BeforeSuite and @AfterSuite, in a test configuration file specify which operations are performed before and after each test suite.
+
+
+@BeforeTest and @AfterTest: Similar to suite-level annotations, @BeforeTest and @AfterTest in your test configuration XML indicate the test methods that are run before and after all other test methods 
+
+@DataProvider: The method that provides data for parameterized testing is specified by this annotation. 
+
+@Parameters: Indicates a method parameter’s value should be retrieved from the test suite’s XML file based on the parameter name.It is typically used in conjunction with @DataProvider to pass parameters to test methods.
+
+
+@Listeners: This annotation specifies one or more listener classes for your test suite that should be alerted of test events
+
+10 tCS
+9 Tcs
+
+rerun the TC - count
+
+
+
+10th TC - Network slowdown - Fail
+
+2 tcS FAILED 
+
+
+
+Configuration annotations : all the annotations that start with
+@Before or @After
+
+@BeforeGroups
+@AfterGroups
+
+BeforeSuite.
+BeforeTest.
+BeforeClass.
+BeforeMethod.
+Test Case.
+AfterMethod.
+AfterClass.
+AfterTest.
+
+
+How to execute the test cases as per our need ? 
+  Priority 
+
+
+public class AddUserPIM(){
+
+@BeforeClass
+public void launchBrowser(){
+}
+
+@Beforemethod
+public void login(){
+}
+
+@Test
+public void addUser(){
+}
+
+@afterMethod
+public void logout(){
+}
+
+@AfterClass
+public void closeBrowser(){
+}
+
+}
+
+
+25/05/2024
+TestNG - Annotations 
+********************
+
+1) Identify all the common test steps that are repeating
+2) Open a common class 'ProjectSpecificMethods' and place the common codes inside it
+Use RemoteWebDriver so that our code supports any browsers we need 
+Common class level variable declaration !
+
+3) Place those code inside the @BeforeMethod and @AfterMethod in ProjectSpecificMethods
+
+4) inherit Extend the ProjectSpecificMethods class from all the testcases (and remove the duplicated code)
+
+5) Run and Confirm - all works fine !
+
+
+
+
+Attributes @Test
+****************
+
+
+1. (invocationCount = 3) 
+Run a test case multiple times sequentially
+Default count = 1
+- The number of times this method should be invoked.
+ - Use it when: you like to create data for same information
+
+@Test(invocationCount = 0) : Test case is not identified 
+
+
+   
+2.threadPoolSize:   // parallel
+ @Test(invocationCount = 2, threadPoolSize = 2)
+threadPoolSize : always paired with invocationCount
+
+
+3. @Test(invocationCount = 2, invocationTimeOut =10000)  
+im milliseconds
+
+	Stops the execution if the time limit exceeds ( holds good  
+org.testng.internal.thread.ThreadTimeoutException
+Method OrangeHRMFrameWorkAttrtibutes.LearnTestNGAttributes.testMthd3() didn't finish within the time-out 5
+
+
+@test
+@Test
+
+2000
+
+
+
+4. timeOut :
+used to determine the maximum time permitted for a test method to execute
+TestNG will label it as a failed test and terminate the execution, if the time is exceeded
+set in milliseconds
+The rest of the test methods will have no impact.
+
+5. priority	
+- The priority for this test method. Lower priorities will be scheduled first.
+- priority will work within the class whereas dom -> across classes 
+- priority will run even when previous priority fails but dom does not !
+
+6. dependsOnMethods
+Total tests run: 5, Passes: 3, Failures: 1, Skips: 1
+7. alwaysRun	
+If set to true, this test method will always be run even if it 
+depends on a method that failed.
+  Tests run: 5, Failures: 1, Skips: 0
+8. enabled	 / @ignore
+Whether methods on this class/method are enabled.
+- enabled is at method level
+- ignore can be used at the class level too
+
+
+9. SuccessPercentage:
+100 TCs - 5 TCs fails, suite status - PASS
+
+groups	
+- The list of groups this class/method belongs to.
+
+enabled
+	
+The list of methods this method depends on.
+
+Delete Lead depends on Create Lead
+
+priority vs dependsonmethods
+
+Assignment: 
+Apply priority to the methods in OrangeHRM and try to execute it through xml 
+
+
+
+Classroom Assignment : 3
+
+1) Run one of the test (CreateLead) 2 times
+2) Make another test (EditLead) depends on the other test (CreateLead)
+    - Confirm the CreateLead (first/dependency test) runs first
+    - Confirm the dependent test runs second
+    - Then make the dependency / first / createlead to fail using timeout (like 1s)
+    - Confirm the dependency gets skipped (7.6.1 --> please change to 7.4.0)
+
+
+TOmorrow: 
+
+Parametrization : 
+- static 
+- dynamic
+
+STATIC PARAMETRIZATION
+**********************:
+
+Set up the xml file to provide the value 
+Set the code to receive the value
+
+-Step 1 : Declare the values in the xml using <parameter> tag between Suite and test tags
+	<parameter name="url"
+		value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"></parameter>
+	<parameter name="uName" value="Admin"></parameter>
+	<parameter name="pswd" value="admin123"></parameter>
+Now, TestNG is ready with the values
+
+Step 2: The above values has to received by the method in the project 
+ Pass these values using @Parameters()
+ - @Parameters({"url","uName","pswd"})
+
+Step 3 : Pass arguments to the setup() method 
+public void setup() as 
+public void setUp(String Url, String userName, String passWord) {
+
+Step 4 : Replace all the values with the static parameters 
+
+This is done in the XML file and hence remains common for all the testcases
+
+
+
+DYNAMIC PARAMETRIZATION
+**********************:
+
+Mthd 1 : Using limited data fom an array
+Mthd 2 : Using data from excel sheet
+
+@DataProvider 
+
+
+Pass multiple values to one particular testcase
+
+Take AddUserPIM :
+ Required to add two users 
+ So, create an array of 	
+ Insert a method called sendData() 
+ Add all the data by supplying the values
+ Include the @DataProvider annotation for the method which defines the data set
+	@DataProvider(name = "sendData")
+Then pass three parameters as argument to the addUserPIM() each for fname, sname, lastName 
+     public void addUserPIM(String XX, String XXX, String XXX	)
+Inclde @Test(dataProvider = "name") attribute
+
+EXCEPTIONS:
+org.testng.TestNGException: 
+Method setup requires 3 parameters but 4 were supplied in the BeforeMethod annotation.
+
+
+
+Assignment:
+Try DataProvider for AddUser
+
+Reading data from Excel sheet :
+******************************
+DataProvider
+Excel  : 
+
+   - Read an excel
+   - Write into a new excel
+   - Modify the existing excel 
+
+Create a data sheet with the data required ( 2 sets of data)
+Download the dependencies : ApachePOI ( MS applications) 
+    - poi 
+    - poi-ooxml
+
+Older versions of Excel :    .xls format - HSSF
+
+Read an Excel :(.xlsx) 
+
+1. Open the workbook --> XSSFWorkBook ( Excel Sheet)
+2. Get the worksheet --> XSSFWorkSheet.getSheet()  
+3. Get the first row of data --> XSSFRow.getRow()
+4. Hit each row and get the cells --> XSSFCell.getCell()
+
+
+FileInputStream: The Java I/O API's FileInputStream class is used in conjunction with Apache POI 
+                 to read data from Excel in Selenium.
+
+FileOutputStream: The FileOutputStream class is used to write data to a file
+
+
+remove the @BeforeMethod of the datprovider and see where it ios called 
+
+
+Returns:• short representing the last logical cell in the row PLUS ONE,or -1 if the row does not contain any cells.
+
+Gets the index of the last cell contained in this row PLUS ONE. The result alsohappens to be the 1-based column number of the last cell. This value can be used as astandard upper bound when iterating over cells:  
+ short minColIx =  row.getFirstCellNum();
+ short maxColIx = row.getLastCellNum();
+ for(short colIx=minColIx; colIx<maxColIx; colIx++) {
+   XSSFCell cell = row.getCell(colIx);
+   if(cell == null) {
+     continue;
+   }
+   //... do something with cell
+ }
+
+
+Learn the heirarchial order of the calls :
+
+*********** DATA PROVIDER *********
+ *********** BEFORE METHOD CALLED *********
+	System.out.println(" *********** BEFORE METHOD CALLED *********");
+
+Test Plan : 
+
+CASE 1 :
+1. addUserPIM - Add 2 users using the data from the excel sheet
+Add dataprovider to @Test of DeletUserPIMUsngName class
+Add the arguments to the method
+
+2. deleteUserPIM - Delete the PIM user using the data from the excel sheet by giving the Employee Name field
+ - Use the common excel sheet (ReadData.xlsx)
+Add dataprovider to @Test of DeletUserPIMUsngName class
+Add the arguments to the method
+
+
+CASE 2:
+
+
+CASE 3:
+
+
+TestNG Assignment 1:
+********************
+1. Have a package that has addUserPIM and DeletUserPIMEmpID 
+2. Add 2 users in addUserPIM using Excel sheet with the help of DataProvider 
+3. Get the EmployeeID for every user from the UI and write in an excel (New set of code that u have to write)
+4. Now, in the DeleteUserPIMEmpID class, read the excel file that has empID (use Dataprovider) and search with this empID and delete that user.
+
+ 
+Execute both in order.
+ Here the DeletUserPIM deletes only the recently added user 
+  ( Modify your code : Write the empId in an excel sheet, while running AddUserPIM.java
+                       Read the same file in DeletPIMUser to delete all the added users)
+
+
+
+
+
+
+Step 2 : to feed the 
+
+Declare public String excelName; in the PSM 
+Add @BeforeTest to set the excel name
+Modify the readExcel method to have excelName as an argument 
+   ReadExcelTestNG(String excelName)
+Now pass this excel name to the test cases which ever requires this file
+
+	@BeforeTest
+	public String setExcelName() {
+		return excelName = "ReadData.xlsx";
+	}
+	
+
+June 05 2024
+
+Modify the test cases to read different excel sheets :
+*****************************************************
+Task 1:
+*******
+Requirements : 
+************
+AddPIM user - requires one excel sheet
+DeletePIMUser - requires another excel sheet  
+
+Step 1: 
+*******
+Data Folder : 
+Have these excel sheets ready in the data folder
+
+Step 2 :
+*******
+ReadExcelTestNG :
+  * Modify ReadExcelTestNG.readData() method to accept a parameter for the Excel name
+  * Pass  a String as an argument that carries the excel name 
+       public String[][] readData(String filename) throws IOException, InvalidFormatException {
+
+  * Change the XSSFWorkbook to the parameter instead of the excel name 
+             XSSFWorkbook wBook = new XSSFWorkbook(".\\data\\"+fileName+".xlsx");
+
+Step 3 :
+********
+ProjectSpecificMethods class:
+
+  - Include a global variable
+        public String excelName;
+  - @DataProvider : 
+        Pass the parameter to the readData() method 
+            obj.readData(excelName);
+
+Step 4:
+*******
+Class with @Test:
+In each class that has @Test, include this method to set the name of excel that it needs 
+
+In the class AddUserPIM , include the below method
+	public void setUpExcelName() {
+		excelName = "AddPIMData";
+	}
+	
+In the class DeleteUserPIMUsngName, include the below method
+   	public void setUpExcelName() {
+		excelName = "DeletePIMData";
+	}
+	
+The filename has to be decided before the data is fetched 
+(ie) data provider 
+So, tag as @BC for setUpExcelName()
+   BeforeClass or BeforeTest or BeforeSuite for setUpExcelName()
+
+@BeforeClass
+public void setUpExcelName() {
+		excelName = "AddPIMData";
+	}
+
+
+
+TestNG Reports :
+Show the TestNG emailable reports , index.html
+
+Not customisable 
+
+Extent Reports:
+  - 
+
+
+
+
+08-June
+Groups :
+
+200 TCs:
+
+
+
+
+Diff types of testcases :
+
+100 testcases:
+
+Login    - smoke
+Logout   - smoke
+createUsers() - smoke
+
+AddPIMuser - regression  
+DeletePIMUser - regression
+
+Admin : 
+AddadminUser - functional
+DeleteAdminUser - functional
+
+Leave:
+applyLeave - functional
+CheckLeave - regression
+
+MyInfo 
+EditInfo
+DeleteInfo
+
+
+
+
+Smoke Test Cases
+functional Test Cases
+Regression Test Cases
+
+
+@Test(groups="functional")
+addPIMUser()
+
+ 
+@Test(groups="functional")
+deletePIMUser()
+@Test(groups="smoke")
+addUser()
+@Test(groups="regression")
+deleteUser()
+
+xml:
+
+
+<groups>
+<run>
+  <include name = 'regression"></include>
+ <include name = 'functionsl"></include>
+<exclude … 
+
+</groups>
+
+
+
+Pending Tasks:
+
+groups
+
+<scope>compile</scope> 
+<scope>test</scope>
+
+
+The <scope> element can take 6 values: compile, provided, runtime, test, system and import.
+
+
+
+This scope is used to limit the transitivity of a dependency, and also to affect the classpath used for various build tasks.
+test:
+This scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases
+
+compile:
+This is the default scope, used if none is specified. Compile dependencies are available in all classpaths of a project. Furthermore, those dependencies are propagated to dependent projects.
+
+
+200TCs
+  10 Failed 
+    - bug 
+    - server timing issues
+
+Jenkins :
+Timely run - Night run 
+ 10 TCs failed 
+ 
+Status : FAIL 
+
+
+
+
+
+Few reasons for the failure of the Testcases:
+	Random browser issues or browser becoming unresponsive
+	Random machine issues
+	Server issues like unexpected delay in the response from serv
+
+What can be done when a project is executed and few cases have failed ?
+
+1. testng-failed.xml : Contains only the failed test cases.
+  Requires manual intervention
+
+2. RetryFailed Testcase - RetryAnalyzer
+
+implementation should return true if you want to re-execute your failed test
+implementation should return false if you don't want to re-execute your test.
+this interface decides on  how many times to retry a failed tests based on a fixed counter
+
+
+
+
+Mthd 1 :
+By specifying retryAnalyzer value in the @Test annotation
+Interface to implement to be able to have a chance to retry a failed test
+
+TestNG provides a feature that allows you to retry a test case multiple times before declaring it as failed.
+1. Create a class that implements the IRetryAnalyzer (interface)
+2. Include retry analyser in your tests 
+        - By specifying retryAnalyzer value in the @Test annotation
+
+
+
+Mthd 2 : Use Listeners
+
+Listeners are TestNG annotations that literally “listen” to the events in a script
+
+Modify TestNG behavior accordingly
+@Listeners annotation will apply to your entire suite file
+
+setRetryAnalyzer : Sets the value for the retryAnlayser.
+        So the user doesn't have to specify it in the @Test annotation 
+        - By adding Retry analyser during run time by implementing on the of the Listener interfaces
+
+
+Steps to implement:
+*******************
+
+Implement IretryAnalyzer  - defining how the failed code has to be handled
+Implement IAnnotationTransformer - setting which retry analyser has to be used
+Include Listener in the xml 	
+
+
+Assertion:
+HARD ASSERT : Assert
+LearnAssertion.java
+ Title L: OrangeHRM
+Using he IF statement
+
+1100 lines of code '
+Assertion error : Line no 25
+Execution is terminated
+
+
+FAIL
+PASSED: TestNGOthers.LearnAssertion.login
+
+
+FAIL
+FAILED: TestNGOthers.LearnAssertion.login
+
+
+SOFT ASSERT:
+1100 lines of code '
+Soft Assertion error : Line no 25  -- Assertion #1
+Executes till 100 lines 
+Sof Assertion error  -- Assertion #2
+Execution continues till 1100
+
+SoftAssert sftAssert = new SoftAssert();
+SoftAssert.assertAll();
+Show the log of all the assertion errors 
+
+
+
+customised assertion :
+for nullcheck
+equals
+notequals
+ContainAll'
+
+
+
+
+
+
+
+
+
+
+ - Verification - verify if the actual result matches the expected result 
+
+Find answer :
+Why Assert doesnot need the  
+
+java :
+static
+constructor
+this 
+
+
+important 
+PageObjectModel
+
+	
+
+
+xml --> give the excel names
+pareemter tag
+
+
+<parameter name="varName" value="ExcelsheetName"></parameter>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
